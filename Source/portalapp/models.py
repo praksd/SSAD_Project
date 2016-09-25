@@ -1,5 +1,8 @@
 from __future__ import unicode_literals 
-from django.db import models 
+from django.db import models
+from django.utils import timezone
+from datetime import datetime
+ 
 
 class Album(models.Model):     
     name = models.CharField(max_length=128)     
@@ -19,3 +22,19 @@ class Photo(models.Model):
     
     class Meta:         
         ordering = ["-timestamp"]
+
+
+class Register(models.Model):
+        author = models.ForeignKey('auth.User')
+        topic = models.CharField(max_length=200)
+        abstract = models.TextField()
+        created_date = models.DateTimeField(default=timezone.now)
+        speaker = models.CharField(max_length=200)
+        venue = models.CharField(max_length=200)
+        on_date = models.DateTimeField(blank = False,default=datetime.now)
+        bio = models.TextField()
+        coordinator = models.CharField(max_length=200)
+
+        def __str__(self):
+            return self.speaker
+
