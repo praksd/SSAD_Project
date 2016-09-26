@@ -29,7 +29,7 @@ class Photo(models.Model):
         def __unicode__(self):
                 return self.title
 
-        def save(self, force_insert=False, force_update=False):
+        """def save(self, force_insert=False, force_update=False):
                 if self.summary:
                         self.summary_html = markdown(self.summary)
                 super(Photo, self).save(force_insert, force_update)
@@ -41,11 +41,11 @@ class Photo(models.Model):
                         # Open the image that was uploaded.
                         im = Image.open(settings.MEDIA_ROOT + str(self.image))
                         # Compare the image size against the maximum size. If it is greater, the image will be resized.
-
+"""
         def get_absolute_url(self):
                 return ('thaddeus_photo_detail', (),
                                 { 'slug': self.slug })
-
+        get_absolute_url = models.permalink(get_absolute_url)
 
 class Register(models.Model):
         author = models.ForeignKey('auth.User')
@@ -60,7 +60,6 @@ class Register(models.Model):
 
         def __str__(self):
             return self.speaker
-
 
 class PressRelease(models.Model):
     Title = models.CharField(max_length=256)
