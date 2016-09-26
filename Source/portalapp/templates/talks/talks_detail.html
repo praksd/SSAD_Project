@@ -1,0 +1,21 @@
+{% extends 'talks/base.html' %}
+
+{% block content %}
+{% for talk in talks %}
+    <div class="post">
+  <a class="btn btn-default" href="{% url 'talk_edit' pk=talk.pk %}">Edit</a>
+   <p><strong>Talk On: </stronge><a href="">{{talk.topic}} </a></p>
+   <p><strong>Speaker: </strong>{{talk.speaker}} </p>
+<div class="date">
+   <p><strong>Date & Time: </strong>{{talk.date_and_time}} </p>
+</div>
+
+ <p><strong>Venue: </strong>{{talk.venue}} </p>
+         <p><strong>Abstract: </strong>{{talk.abstract|linebreaksbr}} </p>
+        <p><strong>Bio of the Speaker: </strong>{{talk.bio|linebreaksbr}}</p>
+        <p><strong>Faculty Coordinator: </strong>{{talk.coordinator}}</p>
+    </div>
+{% endfor %}
+
+{% endblock %}
+
