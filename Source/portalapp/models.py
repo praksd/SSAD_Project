@@ -1,15 +1,16 @@
-from __future__ import unicode_literals 
+from __future__ import unicode_literals
 import datetime, os, sys
 from PIL import Image
-#from __future__ import unicode_literals 
 from django.db import models
 from django.core.files import File
 from django.conf import settings
 #from markdown import markdown
 from django.utils import timezone
 from datetime import datetime
+from tinymce.models import HTMLField
 
- 
+
+
 class Photo(models.Model):
         title = models.CharField(max_length=250,
                 help_text='Maximum 250 characters.', blank=True)
@@ -28,28 +29,23 @@ class Photo(models.Model):
         def __unicode__(self):
                 return self.title
 
+        def save(self, force_insert=False, force_update=False):
+                if self.summary:
+                        self.summary_html = markdown(self.summary)
+                super(Photo, self).save(force_insert, force_update)
+
+                if self.image and not self.thumb:
+                        #Set the thumbnail size and maximumsize
+                        t_size = 200, 150
+                        max_size = 800, 600
+                        # Open the image that was uploaded.
+                        im = Image.open(settings.MEDIA_ROOT + str(self.image))
+                        # Compare the image size against the maximum size. If it is greater, the image will be resized.
 
         def get_absolute_url(self):
                 return ('thaddeus_photo_detail', (),
                                 { 'slug': self.slug })
-        get_absolute_url = models.permalink(get_absolute_url)
 
-
-        """   def save(self, force_insert=False, force_update=False):
-                if self.summary:
-                    self.summary_html = markdown(self.summary)
-                    super(Photo, self).save(force_insert, force_update)
-
-                if self.image and not self.thumb:
-                    #Set the thumbnail size and maximumsize
-                    t_size = 200, 150    
-                    max_size = 800, 600
-                    # Open the image that was uploaded.
-                    im = Image.open(settings.MEDIA_ROOT + str(self.image)"""
-
-        
-
-    
 
 class Register(models.Model):
         author = models.ForeignKey('auth.User')
@@ -65,3 +61,8 @@ class Register(models.Model):
         def __str__(self):
             return self.speaker
 
+
+class PressRelease(models.Model):
+    Title = models.CharField(max_length=256)
+    timestamp = models.DateTimeField(auto_now_add=True, auto_now=False)
+    content = HTMLField()
