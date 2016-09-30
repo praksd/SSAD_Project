@@ -11,11 +11,14 @@ from django.forms.extras.widgets import SelectDateWidget
 class TalkForm(forms.ModelForm):
           #on_date=forms.DateTimeField(input_formats=['%Y-%m-%d %H:%M'],default=datetime.now)
           coordinator = forms.CharField(label='Faculty Coordinator')
-          bio = forms.CharField(label='Bio of the speaker')
+          bio = forms.CharField(label='Bio of the speaker', widget=forms.Textarea())
           #on_date = forms.DateTimeField(label='Date And Time')
  
           #on_date = forms.DateField(widget=SelectDateWidget(empty_label="Nothing"))
           class Meta:
               model = Register
               fields = ('topic', 'speaker','date_and_time','venue','abstract','bio','coordinator',)
+              '''widgets = {
+            'bio': forms.Textarea(attrs={'cols': 30, 'rows': 1}),
+              }'''
                                                                                                        
