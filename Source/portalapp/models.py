@@ -8,7 +8,9 @@ from django.conf import settings
 from django.utils import timezone
 from datetime import datetime
 from tinymce.models import HTMLField
-
+from django import forms
+#from django.contrib.flatpages.models import FlatPage
+from tinymce.widgets import TinyMCE
 
 
 class Photo(models.Model):
@@ -63,5 +65,27 @@ class Register(models.Model):
 
 class PressRelease(models.Model):
     Title = models.CharField(max_length=256)
-    timestamp = models.DateTimeField(auto_now_add=True, auto_now=False)
+    summary = models.TextField(blank=True, help_text='A summary for the archive.')
+    slug = models.SlugField(unique = True, help_text='Suggested value automatically generated from title. Must be unique.', null=True)
     content = HTMLField()
+    #timestamp = models.DateTimeField(auto_now_add=True, auto_now=False)
+    date = models.DateTimeField(default=datetime.now)
+    def get_absolute_url(self):
+        return ('release_detail', (),
+                        { 'slug': self.slug })
+    get_absolute_url = models.permalink(get_absolute_url)
+
+    class Meta:
+            ordering = ['-date']
+    def __unicode__(self):
+            return self.Title
+
+
+"""class FlatPageForm(forms.ModelForm):
+    #fields
+    content = forms.CharField(widget=TinyMCE(attrs={'cols': 80, 'rows': 30}))
+
+    class Meta:
+        model = FlatPage
+        fields="__all__"
+"""
