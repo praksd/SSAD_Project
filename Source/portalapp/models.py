@@ -12,20 +12,31 @@ from django import forms
 #from django.contrib.flatpages.models import FlatPage
 from tinymce.widgets import TinyMCE
 
-
 class Photo(models.Model):
         title = models.CharField(max_length=250,
                 help_text='Maximum 250 characters.', blank=True)
         slug = models.SlugField(unique = True,
                 help_text='Suggested value automatically generated from title. Must be unique.', null=True)
-        summary = models.TextField(blank=True,
+        caption = models.TextField(blank=True, max_length=250,
                 help_text='An optional summary.')
-        summary_html = models.TextField(editable=False, blank=True)
         date = models.DateTimeField(default=datetime.now)
         image = models.ImageField(upload_to='photos',
                 help_text='Maximum resolution 800x600. Larger images will be resized.')
-        thumb = models.ImageField(upload_to='photos', editable=False, null=True)
-
+        ALL = 'ALL'
+        CAMPUS = 'CAMPUS'
+        CULT = 'CULT'
+        ACADS = 'ACADS'
+        ALBUM_CHOICES = (
+                (ALL, 'All'),
+                (CAMPUS, 'Campus'),
+                (CULT, 'Cult'),
+                (ACADS, 'Acads'),
+                )
+        album = models.CharField(
+                max_length=6,
+                choices = ALBUM_CHOICES, blank = False, default = ALL,
+                )
+        
         class Meta:
                 ordering = ['-date']
         def __unicode__(self):
