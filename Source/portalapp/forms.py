@@ -31,7 +31,6 @@ class TalkForm(forms.ModelForm):
         model = FlatPage
         fields="__all__"
 """
-
-              '''widgets = {
+'''widgets = {
             'bio': forms.Textarea(attrs={'cols': 30, 'rows': 1}),
               }'''
