@@ -14,7 +14,7 @@ urlpatterns = [
     url(r'^sitemap\.xml$', 'django.contrib.sitemaps.views.sitemap',
         {'sitemaps': {'cmspages': CMSSitemap}}),
     url(r'^select2/', include('django_select2.urls')),
-    url(r'^talks/',include('portalapp.urls')),
+    url(r'',include('portalapp.urls')),
     url(r'^tinymce/', include('tinymce.urls')),
 ]
 
