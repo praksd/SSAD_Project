@@ -5,6 +5,16 @@ from django.shortcuts import render, get_object_or_404
 from .forms import TalkForm
 from django.shortcuts import redirect
 from .models import Photo
+from django.http import HttpResponse
+from django.template import loader
+
+
+def index(request):
+    template = loader.get_template('home/index.html')
+    context = {
+        'latest_question_list': latest_question_list,
+    }
+    return HttpResponse(template.render(context, request))
 
 def photo_list(request):
     queryset = Photo.objects.all()
@@ -26,8 +36,8 @@ def talk_new(request):
          talk.author = request.user
          talk.save()
          return redirect('talks_list')
-    
-    else: 
+
+    else:
       form = TalkForm()
     return render(request, 'talks/talk_edit.html', {'form': form})
 
@@ -46,5 +56,3 @@ def talk_edit(request,pk):
    else:
        form = TalkForm(instance=talk)
    return render(request, 'talks/talk_edit.html', {'form': form})
-   
-

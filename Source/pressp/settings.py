@@ -148,7 +148,8 @@ INSTALLED_APPS = (
     'djangocms_snippet',
     'djangocms_googlemap',
     'djangocms_video',
-    'portalapp'
+    'portalapp',
+    'tinymce',
 )
 
 LANGUAGES = (
@@ -198,8 +199,17 @@ DATABASES = {
 }
 
 MIGRATION_MODULES = {
-    
+
 }
+TINYMCE_JS_URL = 'http://debug.example.org/tiny_mce/tiny_mce_src.js'
+TINYMCE_DEFAULT_CONFIG = {
+    'plugins': "table,spellchecker,paste,searchreplace",
+    'theme': "advanced",
+    'cleanup_on_startup': True,
+    'custom_undo_redo_levels': 10,
+}
+TINYMCE_SPELLCHECKER = True
+TINYMCE_COMPRESSOR = True
 
 THUMBNAIL_PROCESSORS = (
     'easy_thumbnails.processors.colorspace',
