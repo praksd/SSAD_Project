@@ -4,6 +4,7 @@
       <meta charset="utf-8">
         <title>Talks</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
         <link rel="shortcut icon" href="{% static 'images/favicon.png' %}" />
         <!--<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
         <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">-->
@@ -60,20 +61,28 @@
                     <li><a href="index.html">Home</a></li>
 
 
+                       {% if user.is_authenticated %}
 
-                    <li><a href="blog.html">Talks</a>
+                    <li><a href="#">Talks</a>
 
                         <ul>
 
-                            <li><a href="post-featured.html">Featured Post</a></li>
+                            <li><a href="{% url 'talks_list' %}">Talks List</a></li>
 
-                            <li><a href="post-gallery.html">Gallery Post</a></li>
+                            <li><a href="{% url 'talk_new' %}">Upload Talk</a></li>
 
-                            <li><a href="post-video.html">Video Post</a></li>
+                            <li><a href="{% url 'talks_detail' %}">Edit Talk</a></li>
 
                         </ul>
 
                     </li>
+
+                    {% else %}
+
+                     <li><a href="{% url 'talks_list' %}">Talks</a></li>
+                     {% endif %}
+
+
 
                     <li><a href="#">Gallery</a>
 
@@ -118,8 +127,12 @@
 
 </div><!-- End of header-wrapper -->
 
+
+
+
 {% block content %}
 {% endblock %}
+
 
 
 <!-- Footer -->
@@ -239,7 +252,7 @@
 
 
 
- 
+
 
 
 

@@ -1,9 +1,28 @@
 {% extends 'talks/base.html' %}
 
 {% block content %}
+
+<!-- .header-bottom-wrapper -->
+<div class="header-bottom-wrapper">
+    <div class="container">
+        <div class="row">
+            <!-- Page Head -->
+            <div class="page-head col-lg-12">
+                <h2 class="page-title">Talks</h2>
+            </div>
+            <!-- End Page Head -->
+        </div>
+    </div>
+</div><!-- End of .header-bottom-wrapper -->
+<div class="page-container container">
+
+        <div class="row">
+
+
 {% for talk in talks %}
+
     <div class="post">
-  <a class="btn btn-default" href="{% url 'talk_edit' pk=talk.pk %}">Edit</a>
+  <p><a class="pp-btn grey sm" href="{% url 'talk_edit' pk=talk.pk %}">Edit</a></p>
    <p><strong>Talk On: </stronge><a href="">{{talk.topic}} </a></p>
    <p><strong>Speaker: </strong>{{talk.speaker}} </p>
 <div class="date">
@@ -16,6 +35,8 @@
         <p><strong>Faculty Coordinator: </strong>{{talk.coordinator}}</p>
     </div>
 {% endfor %}
+</div>
+</div>
+
 
 {% endblock %}
-
