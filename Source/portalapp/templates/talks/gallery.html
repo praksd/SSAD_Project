@@ -1,0 +1,112 @@
+{% extends 'talks/base.html' %}
+
+{% block content  %}
+<!-- .header-bottom-wrapper -->
+<div class="header-bottom-wrapper">
+    <div class="container">
+        <div class="row">
+            <!-- Page Head -->
+            <div class="page-head col-lg-12">
+                <h2 class="page-title">Four Columns Gallery</h2>
+            </div>
+            <!-- End Page Head -->
+        </div>
+    </div>
+</div><!-- End of .header-bottom-wrapper -->
+
+<!-- page-container -->
+<div class="page-container container">
+
+    <!-- Gallery Filter -->
+    <div id="filter-by" class="clearfix">
+        <a href="#" data-filter="gallery-item" class="pp-btn active">All</a>
+        <a class="pp-btn" href="#" data-filter="campaign" title="View all Gallery Items tagged Campaign">Campus</a>
+        <a class="pp-btn" href="#" data-filter="facts" title="View all Gallery Items tagged Facts">Cult</a>
+        <a class="pp-btn" href="#" data-filter="issues" title="View all Gallery Items tagged Issues">Acads</a>
+    </div>
+
+    <div id="gallery-container">
+        <div class="row gallery-4-columns isotope clearfix">
+		{% for photo in photos %}
+            <div class="gallery-item isotope-item issues  col-lg-3 col-md-3 col-sm-3 col-xs-6">
+                <figure>
+					<a class="zoom swipebox" href="#" title="{{photo.title}}"></a>
+                    <div class="media_container"></div>
+					<img src="{{photo.image}}" alt="{{photo.album}}">
+                </figure>
+				<h5 class="item-title"><a href="#" title="{{photo.title}}">{{photo.title}}</a></h5>
+            </div>
+		{% endfor %}
+
+           <!-- <div class="gallery-item isotope-item campaign  col-lg-3 col-md-3 col-sm-3 col-xs-6">
+                <figure>
+                    <a class="zoom swipebox" href="images/temp-images/1st-gallery-item.jpg" title="Vision"></a>
+                    <div class="media_container"></div>
+                    <img src="images/temp-images/1st-gallery-item.jpg" alt="Vision">
+                </figure>
+                <h5 class="item-title"><a href="#" title="Vision">Vision</a></h5>
+            </div>
+
+            <div class="gallery-item isotope-item campaign  col-lg-3 col-md-3 col-sm-3 col-xs-6">
+                <figure>
+                    <a class="zoom swipebox" href="images/temp-images/1st-gallery-item.jpg" title="Public Seminars"></a>
+                    <div class="media_container"></div>
+                    <img src="images/temp-images/1st-gallery-item.jpg" alt="Public Seminars">
+                </figure>
+                <h5 class="item-title"><a href="#" title="Public Seminars">Public Seminars</a></h5>
+            </div>
+
+            <div class="gallery-item isotope-item facts  col-lg-3 col-md-3 col-sm-3 col-xs-6">
+                <figure>
+                    <a class="zoom swipebox" href="images/temp-images/1st-gallery-item.jpg" title="New Investments"></a>
+                    <div class="media_container"></div>
+                    <img src="images/temp-images/1st-gallery-item.jpg" alt="New Investments">
+                </figure>
+                <h5 class="item-title"><a href="#" title="New Investments">New Investments</a></h5>
+            </div>
+
+            <div class="gallery-item isotope-item facts  col-lg-3 col-md-3 col-sm-3 col-xs-6">
+                <figure>
+                    <a class="zoom swipebox" href="images/temp-images/1st-gallery-item.jpg" title="Role of Media"></a>
+                    <div class="media_container"></div>
+                    <img src="images/temp-images/1st-gallery-item.jpg" alt="Role of Media">
+                </figure>
+                <h5 class="item-title"><a href="#" title="Role of Media">Role of Media</a></h5>
+            </div>
+
+            <div class="gallery-item isotope-item issues  col-lg-3 col-md-3 col-sm-3 col-xs-6">
+                <figure>
+                    <a class="zoom swipebox" href="images/temp-images/1st-gallery-item.jpg" title="Government Houses"></a>
+                    <div class="media_container"></div>
+                    <img src="images/temp-images/1st-gallery-item.jpg" alt="Government Houses">
+                </figure>
+                <h5 class="item-title"><a href="#" title="Government Houses">Government Houses</a></h5>
+            </div>
+
+            <div class="gallery-item isotope-item issues  col-lg-3 col-md-3 col-sm-3 col-xs-6">
+                <figure>
+                    <a class="zoom swipebox" href="images/temp-images/1st-gallery-item.jpg" title="People Voices"></a>
+                    <div class="media_container"></div>
+                    <img src="images/temp-images/1st-gallery-item.jpg" alt="People Voices">
+                </figure>
+                <h5 class="item-title"><a href="#" title="People Voices">People Voices</a></h5>
+            </div>
+
+            <div class="gallery-item isotope-item facts  col-lg-3 col-md-3 col-sm-3 col-xs-6">
+                <figure>
+                    <a class="zoom swipebox" href="images/temp-images/1st-gallery-item.jpg" title="Agriculture Growth"></a>
+                    <div class="media_container"></div>
+                    <img src="images/temp-images/1st-gallery-item.jpg" alt="Agriculture Growth">
+                </figure>
+                <h5 class="item-title"><a href="#" title="Agriculture Growth">Agriculture Growth</a></h5>
+			</div> -->
+
+        </div>
+    </div>
+
+</div><!-- End of .page-container -->
+
+{% endblock  %}
+
+
+

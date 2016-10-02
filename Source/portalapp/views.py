@@ -21,7 +21,7 @@ def photo_list(request):
     context = {
             "photos" : queryset,
             }
-    return render(request, "templates", context)
+    return render(request, "talks/gallery.html", context)
 
 
 def talks_list(request):
