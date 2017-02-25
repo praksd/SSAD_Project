@@ -1,0 +1,82 @@
+{% extends 'talks/base.html' %}
+{% load social_widgets %}
+
+{% block content %}
+<!-- .header-bottom-wrapper -->
+<div class="header-bottom-wrapper">
+    <div class="container">
+        <div class="row">
+            <!-- Page Head -->
+            <div class="page-head col-lg-12">
+                <h2 class="page-title">Talks</h2>
+            </div>
+            <!-- End Page Head -->
+        </div>
+    </div>
+</div>
+<div class="page-container container">
+
+        <div class="row">
+
+<img src="{{ talk.image.url }}" class="alignleft candidate-image wp-post-image" alt="{{talk.speaker}}" width="260px" height="260px" />
+
+<div class="post-content-wrapper clearfix">
+         <p><strong>Talk On: </strong><a href="">{{talk.topic}} </a></p>
+         <p><strong>Speaker: </strong>{{talk.speaker}} </p>
+      <div class="date">
+         <p><strong>Date & Time: </strong>{{talk.date_and_time}} </p>
+      </div>
+
+       <p><strong>Venue: </strong>{{talk.venue}} </p>
+               <p><strong>Abstract: </strong>{{talk.abstract|linebreaksbr}} </p>
+
+
+            <p><strong>Bio of the Speaker: </strong>{{talk.bio|linebreaksbr}}</p>
+              <p><strong>Faculty Coordinator: </strong>{{talk.coordinator}}</p>
+
+</div>
+
+<iframe src="https://www.facebook.com/plugins/share_button.php?href=http%3A%2F%2F127.0.0.1%3A8000%2Ftalk%2F{{talk.pk}}%2Fpart%2F&layout=button&mobile_iframe=true&width=58&height=20&appId" width="58" height="20" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowTransparency="true"></iframe>
+
+{% url 'talk_part' pk=talk.pk as action_url %}
+
+{% social_widget_render "facebook/share_button.html"   href=action_url  layout=button  width="58" height="20" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowTransparency="true"  %}
+
+<!--
+{% social_widget_render "twitter/share_button.html" href="http://www.twitter.com" username="BillGates"  %}
+
+{% social_widget_render "twitter/share_button.html" href=action_url  %}
+
+<a href="https://twitter.com/home?status=I'm%20going%20to%20learn%20to%20Code...%20Come%20build%20an%20web%20apsp%20with%20me!%20%23CFE%20and%20@justinmitchel%20http:{% url 'talk_part' pk=talk.pk %}">
+Share on Twitter
+</a>
+-->
+
+<a href="https://twitter.com/share" class="twitter-share-button" data-show-count="false">Tweet</a><script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+
+{% social_widget_render "google/plus_share_button.html" language="en-US" href=action_url layout="portrait" showphoto=True showowners=False showtagline=True theme="light" width=300 %}
+
+<!--
+<script src="https://apis.google.com/js/platform.js" async defer></script>
+<g:plus action="share"></g:plus>
+-->
+<!--
+<a data-pin-do="embedUser" data-pin-board-width="400" data-pin-scale-height="240" data-pin-scale-width="80" href="https://in.pinterest.com/singhalsimran0/"></a><script async defer src="//assets.pinterest.com/js/pinit.js"></script>
+-->
+<!--
+<script src="//platform.linkedin.com/in.js" type="text/javascript"> lang: en_US</script>
+<script type="IN/Share" data-url="http://127.0.0.1:8000/talk/23/part/"></script>
+
+<script src="//platform.linkedin.com/in.js" type="text/javascript"></script>
+<script type="IN/MemberProfile" data-id="https://www.linkedin.com/in/simran-singhal-0" data-format="inline"></script>
+-->
+<!--
+<iframe src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2FIIITH%2F&tabs=timeline&width=340&height=500&small_header=false&adapt_container_width=true&hide_cover=false&show_facepile=true&appId" width="340" height="500" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowTransparency="true"></iframe>
+-->
+
+</div>
+</div>
+
+
+{% endblock %}

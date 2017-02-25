@@ -273,13 +273,6 @@ img.candidate-image:hover,
   margin: 25px 0 0;
   text-align: center;
 }
-.paginate-links span,
-.page-nav-btns span,
-.pages-nav span,
-.pagination span,
-.paginate-links a,
-.page-nav-btns a,
-.pages-nav a,
 .pagination a {
   display: inline-block;
   padding: 4px 12px;
@@ -287,21 +280,7 @@ img.candidate-image:hover,
   background-color: #dbdde8;
   color: #9799a5;
 }
-.paginate-links span.current,
-.page-nav-btns span.current,
-.pages-nav span.current,
-.pagination span.current,
-.paginate-links a.current,
-.page-nav-btns a.current,
-.pages-nav a.current,
-.pagination a.current,
-.paginate-links span:hover,
-.page-nav-btns span:hover,
-.pages-nav span:hover,
-.pagination span:hover,
-.paginate-links a:hover,
-.page-nav-btns a:hover,
-.pages-nav a:hover,
+
 .pagination a:hover {
   background-color: #1d76e4;
   color: #ffffff;
@@ -360,7 +339,7 @@ img.candidate-image:hover,
 input[type="password"],
 input[type="text"],
 textarea {
-  height: 39px;
+
   padding-left: 10px;
   padding-right: 10px;
   border: 1px solid #dcdcdc;
@@ -401,6 +380,8 @@ input[type="submit"].current {
 input[type="submit"]:focus {
   outline: none;
 }
+
+
 /*-----------------------------------------------------------------------------------*/
 /*  Widgets
 /*-----------------------------------------------------------------------------------*/
@@ -946,7 +927,7 @@ input[type="submit"]:focus {
 .main-menu ul li ul {
   display: none;
   position: absolute;
-  top: 68px;
+  top: 80px;
   left: 0;
   z-index: 888;
   width: 202px;
@@ -1053,6 +1034,7 @@ input[type="submit"]:focus {
 .home-flexslider .flexslider img {
   width: 100%;
   display: block;
+  max-height: 389px;
 }
 .home-flexslider .flex-control-paging {
   bottom: 10px;
@@ -1541,9 +1523,9 @@ form.newsletter input[type="submit"]:hover {
 .timelines .cycle-slideshow {
   height: 164px;
   height: auto;
-  min-height: 164px;
 }
 .timelines .campaign-trail-list-item {
+  heigth: 200px;
   width: 100%;
   list-style: none;
 }
@@ -1750,7 +1732,7 @@ form.newsletter input[type="submit"]:hover {
 .hentry img {
   padding: 8px;
   display: block;
-  height: auto;
+  
   max-width: 100%;
 }
 .hentry p {
@@ -2189,6 +2171,7 @@ p.error {
 /* Biography Page
 /*-----------------------------------------------------------------------------------*/
 img.candidate-image {
+  max-width: 100%;
   padding: 7px;
 }
 img.candidate-image.alignleft {
@@ -2373,7 +2356,7 @@ ul.contact-as li:last-child .content-wrap {
   /*  Main Nav
     /*-----------------------------------------------------------------------------------*/
   .main-menu ul li a {
-    padding: 23px 17px 22px;
+    padding: 23px 17px 34px;
   }
   .main-menu ul li ul li a {
     padding: 12px 19px;
@@ -2750,7 +2733,7 @@ ul.contact-as li:last-child .content-wrap {
   }
   .timelines .cycle-slideshow {
     height: auto;
-    min-height: 100%;
+
   }
   .timelines .detail h2 {
     font-size: 36px;

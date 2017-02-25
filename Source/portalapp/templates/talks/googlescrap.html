@@ -1,0 +1,37 @@
+{% load staticfiles %}
+<html>
+    <head>
+        <title>Google scrapped news</title>
+        <link href='//fonts.googleapis.com/css?family=Lobster&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
+        <link href="{% static 'bootstrap/css/bootstrap.css' %}" rel="stylesheet" type="text/css"/>
+       <link href="{% static 'bootstrap/css/bootstrap.min.css' %}" rel="stylesheet" type="text/css"/>
+        <link href="{% static 'bootstrap/css/bootstrap-theme.min.css' %}" rel="stylesheet" type="text/css"/>
+        <link rel="stylesheet" href="{% static 'mail_template/talks.css' %}">
+    </head>
+    <body>
+    <div class="content" style=" margin-left: 40px; ">
+        <div class="row">
+<div   style="background-color: #ff9400;margin-top: 0;padding: 20px 20px 20px 40px"    class="page-header">
+        <h1 style=" font-family: 'Lobster', cursive;color: #ffffff;text-decoration: none; " >Google News</h1>
+    </div>
+<div class="col-md-8">
+
+            {% for fee in feedsend_list %}
+ <div class="post" style="margin-bottom: 70px;">
+            
+<p><strong>Title: </strong>{{fee.title}} </p>
+            <p><strong>URL: </strong>{{fee.originalurl}} </p>
+<p><strong>PUBLICATION DATE: </strong>{{fee.pub}} </p>
+<p><strong>IMAGE URL: </strong>{{fee.imageurl}} </p>
+<p><strong>Description: </strong>{{fee.description}} </p>
+<p><strong>PUBLISHED By: </strong>{{fee.pub_agency}} </p>
+</div>
+{% endfor %}
+</div>
+    
+    </div>
+    </div>
+</body>
+
+</html>
+

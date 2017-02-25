@@ -36,7 +36,7 @@ end
 # Unset irrelevant variables.
 deactivate nondestructive
 
-set -gx VIRTUAL_ENV "/home/mayankmodi/SSAD18/Source/env"
+set -gx VIRTUAL_ENV "/home/simran/Downloads/SSAD18core-8Nov/Source/env"
 
 set -gx _OLD_VIRTUAL_PATH $PATH
 set -gx PATH "$VIRTUAL_ENV/bin" $PATH

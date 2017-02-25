@@ -1,3 +1,4 @@
+from __future__ import absolute_import
 import os
 gettext = lambda s: s
 DATA_DIR = os.path.dirname(os.path.dirname(__file__))
@@ -29,6 +30,14 @@ SECRET_KEY = 'd*1mgu(+-)&_$pv!3(d3^6u-+o_n=yp7a8x(n6b=lf1%76x(e+'
 DEBUG = True
 
 ALLOWED_HOSTS = []
+
+#EMAIL_BACKEND='django.core.mail.backends.smtp.EmailBackend'
+#EMAIL_USE_TLS = True
+#EMAIL_HOST='localhost'
+#EMAIL_PORT=8000
+#EMAIL_HOST_USER='pressportal18@gmail.com'
+#EMAIL_HOST_PASSWORD='SSAD18ssad'
+
 
 
 # Application definition
@@ -94,7 +103,8 @@ TEMPLATES = [
     'django.core.context_processors.tz',
     'sekizai.context_processors.sekizai',
     'django.core.context_processors.static',
-    'cms.context_processors.cms_settings'
+    'cms.context_processors.cms_settings',
+    'portalapp.context_processors.add_in_news',
             ],
             'loaders': [
                 'django.template.loaders.filesystem.Loader',
@@ -150,7 +160,21 @@ INSTALLED_APPS = (
     'djangocms_video',
     'portalapp',
     'tinymce',
+    'djcelery',
+    'djcelery_email',
+    'post_office',
+    'mailqueue',
+    "social_widgets",
+    'bootstrap3_datetime',
+    'datetimewidget',
+    'endless_pagination',
+    'disqus',
+    #'twitter_tag',
 )
+
+## disqus
+DISQUS_API_KEY = 'gsEqANeDgRiMb2MLuJOowHZQzuuIK80szdAL1FdF6z4BgDaJzW862HKjacB3M2VR'
+DISQUS_WEBSITE_SHORTNAME = 'pressportal'
 
 LANGUAGES = (
     ## Customize this
@@ -217,3 +241,119 @@ THUMBNAIL_PROCESSORS = (
     'filer.thumbnail_processors.scale_and_crop_with_subject_location',
     'easy_thumbnails.processors.filters'
 )
+#EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+#EMAIL_HOST_USER = ''
+#EMAIL_HOST_PASSWORD = ''
+
+#CELERYBEAT_SCHEDULER = "djcelery.schedulers.DatabaseScheduler"
+
+import djcelery
+djcelery.setup_loader()
+
+'''
+
+EMAIL_BACKEND = 'post_office.EmailBackend'
+POST_OFFICE_BACKEND = 'djcelery_email.backends.CeleryEmailBackend'
+
+POST_OFFICE = {
+    'DEFAULT_PRIORITY' : 'medium'
+}
+
+'''
+from datetime import timedelta
+
+BROKER_URL = 'redis://127.0.0.1:6379/0'
+BROKER_TRANSPORT = 'redis'
+CELERYBEAT_SCHEDULER = 'djcelery.schedulers.DatabaseScheduler'
+CELERY_RESULT_BACKEND = 'djcelery.backends.database:DatabaseBackend'
+CELERY_ACCEPT_CONTENT = ['json']
+CELERY_TASK_SERIALIZER = 'json'
+CELERY_RESULT_SERIALIZER = 'json'
+CELERY_TIMEZONE = 'Asia/Kolkata'
+#CELERY_ACCEPT_CONTENT = ['application/json']
+#CELERY_TASK_SERIALIZER = 'json'
+#CELERY_RESULT_SERIALIZER = 'json'
+#CELERY_TIMEZONE = 'Asia/Kolkata'
+
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'smtp.gmail.com'
+#DEFAULT_EMAIL_FROM = 'pressportal18@gmail.com'
+EMAIL_HOST_USER = 'pressportal18@gmail.com'
+EMAIL_HOST_PASSWORD = 'SSAD18ssad'
+EMAIL_PORT = 587
+
+CELERY_IMPORTS = ['portalapp.tasks']
+
+
+'''
+BROKER_HOST = "localhost"
+BROKER_PORT = 5672
+BROKER_USER = "guest"
+BROKER_PASSWORD = "guest"
+BROKER_VHOST = "/"
+'''
+
+
+'''
+# CELERY SETTINGS
+BROKER_URL = 'redis://localhost:6379/0'
+CELERY_ACCEPT_CONTENT = ['json']
+CELERY_TASK_SERIALIZER = 'json'
+CELERY_RESULT_SERIALIZER = 'json'
+
+from celery import Celery
+ILQUEUE_CELERY = True
+celery = Celery(broker="amqp://guest:guest@127.0.0.1:5672//")
+
+celery.conf.update(
+    CELERY_DEFAULT_QUEUE = "pressp",
+    CELERY_DEFAULT_EXCHANGE = "pressp",
+    CELERY_DEFAULT_EXCHANGE_TYPE = "pressp",
+    CELERY_DEFAULT_ROUTING_KEY = "pressp",
+)
+
+BROKER_URL = 'amqp://guest:guest@localhost:5672//'
+
+CELERY_RESULT_BACKEND = 'amqp://guest:guest@localhost:5672//'
+
+CELERY_TASK_SERIALIZER = 'json'
+
+'''
+#MAILQUEUE_CELERY = True
+#MAILQUEUE_QUEUE_UP = True
+'''
+from datetime import timedelta
+
+BROKER_URL = "redis://redis.local:6379/0"
+BROKER_TRANSPORT_OPTIONS = {'fanout_prefix': True, 'fanout_patterns': True, 'visibility_timeout': 480}
+CELERY_RESULT_BACKEND = BROKER_URL
+
+CELERYBEAT_SCHEDULE = {
+    'add-every-30-seconds': {
+        'task': 'tasks.add',
+        'schedule': timedelta(seconds=30),
+        'args': (16, 16)
+    },
+}
+
+CELERY_TIMEZONE = 'UTC'
+
+'''
+
+
+'''import dj_database_url
+DATABASES = {'default': dj_database_url.config(default='postgres://localhost')}
+
+import dj_database_url
+import os
+if os.getcwd() == "/portalapp":
+    DATABASES = {'default': dj_database_url.config(default='postgres://localhost')}
+    '''
+
+
+TEMPLATE_CONTEXT_PROCESSORS = (
+  # ...
+  'django.core.context_processors.request',
+  # ...
+)
+

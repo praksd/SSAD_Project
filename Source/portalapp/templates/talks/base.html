@@ -2,7 +2,7 @@
 <html>
     <head>
       <meta charset="utf-8">
-        <title>Talks</title>
+        <title>Press Portal</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
         <link rel="shortcut icon" href="{% static 'images/favicon.png' %}" />
@@ -24,8 +24,9 @@
 
         <!-- Include the site skin stylesheet -->
         <!-- Political press has 4 skins, but you can use only one of them -->
-        <link href="{% static 'css/skins/lighter-green.css' %}" rel="stylesheet" media="all">
+        <link href="{% static 'css/skins/default.css' %}" rel="stylesheet" media="all">
         <!--<link rel="stylesheet" href="{% static 'css/talks.css' %}">-->
+       {% block extrastyles %}{% endblock %}
 
     </head>
 
@@ -44,13 +45,20 @@
 
         <div class="donate-now clearfix">
 
-            <a target="_blank" title="Donate Now" href="#">Log In</a>
+            <a target="_blank" title="login" href="#">Log In</a>
 
         </div>
 
 
 
         <!-- Start of Main Navigation -->
+        <div class="logo clearfix">
+             <h2 class="logo-heading">
+                 <a href="/"><img height="40px" class="logo"  src="{% static 'images/logo.png' %}" alt="logo" ></a>
+                 <a href="/"><img padding=0px height="35px" class="logo"  src="{% static 'images/logo2.b.jpg' %}" alt="logo" ></a>
+
+             </h2>
+         </div>
 
         <nav role="navigation" class="nav main-menu clearfix" id="nav">
 
@@ -58,7 +66,7 @@
 
                 <ul class="clearfix" id="menu-main-menu">
 
-                    <li><a href="index.html">Home</a></li>
+                    <li><a href="{% url 'pressrelease_short' %}">Home</a></li>
 
 
                        {% if user.is_authenticated %}
@@ -84,20 +92,25 @@
 
 
 
-                    <li><a href="#">Gallery</a>
+                     <li><a href="{% url 'album_list' %}">Gallery</a>
+
+                              </li>
+
+                              <li><a href="{% url 'events' %}">Events</a>
+
+
+
+                              </li>
+
+                              <li><a href="{% url 'pressrelease' %}">Press Realese</a>
+
 
 
                     </li>
 
-                    <li><a href="#">Press Realese</a>
 
 
-
-                    </li>
-
-
-
-                    <li><a href="contact.html">Contact</a></li>
+                    <li><a href="{% url 'contact' %}">Contact</a></li>
 
                 </ul>
 
@@ -113,11 +126,7 @@
 
         <!-- Logo -->
 
-        <div class="logo clearfix">
-             <h2 class="logo-heading">
-                 <a href="index.html" title="Press Portal"><img alt="Political Press" src="images/temp-images/logo.png">IIIT Hyderabad</a>
-             </h2>
-         </div>
+
 
 
 
@@ -150,7 +159,7 @@
                     <section class="widget widget_text" id="text-2">
                         <h3 class="title">About</h3>
                         <div class="textwidget">
-                            <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat.</p>
+                            <p>IIIT-H was set up as a research university focused on the core areas of Information Technology, such as Computer Science, Electronics and Communications, and their applications in other domains. The institute evolved strong research programmes in a host of areas, with computation or IT providing the connecting thread, and with an emphasis on the development of technology and applications, which can be transferred for use to industry and society. This required carrying out basic research that can be used to solve real life problems.  </p>
                         </div>
                     </section>
                     <!-- End of .widget -->
@@ -163,21 +172,11 @@
                     <section class="widget widget_recent_entries" id="recent-posts-3">
                         <h3 class="title">Recent Posts</h3>
                         <ul>
+                          {% for event_recent in events_recent %}
                             <li>
-                                <a href="#">Featured Dolor Ipsum Post</a>
+                                <a href="#">{{event_recent.Title}}</a>
                             </li>
-                            <li>
-                                <a href="#">Sample Image Post</a>
-                            </li>
-                            <li>
-                                <a href="#">Sample Post with Featured Image</a>
-                            </li>
-                            <li>
-                                <a href="#">Sample Post with Gallery Post Format</a>
-                            </li>
-                            <li>
-                                <a href="#">Sample Video Post</a>
-                            </li>
+                          {% endfor %}
                         </ul>
                     </section>
                     <!-- End of .widget -->
@@ -189,10 +188,15 @@
 
                     <!-- widget -->
                     <section class="widget widget_text" id="text-4">
-                        <h3 class="title">Latest Tweets</h3>
-                        <ul id="twitter_update_list">
-                            <li>No Tweet Loaded !</li>
+                        <h3 class="title">In News</h3>
+                        <div class="menu-footer-menu-container">
+                            <ul class="menu" id="menu-footer-menu">
+                              {% for new in in_news %}
+                            <li>
+                              <a href="{{new.original_url}}">{{new.title}}</li>
+                                {% endfor %}
                         </ul>
+                      </div>
                     </section>
                     <!-- End of .widget -->
 
@@ -205,11 +209,11 @@
                         <h3 class="title">Quick Links</h3>
                         <div class="menu-footer-menu-container">
                             <ul class="menu" id="menu-footer-menu">
-                                <li><a href="#">Home</a></li>
-                                <li><a href="#">Blog</a></li>
-                                <li><a href="#">Gallery</a></li>
-                                <li><a href="#">Biography</a></li>
-                                <li><a href="#">Contact</a></li>
+                                <li><a href="{% url 'pressrelease_short' %}">Home</a></li>
+                                <li><a href="{% url 'talks_list' %}">Talks</a></li>
+                                <li><a href="{% url 'album_list' %}">Gallery</a></li>
+                                <li><a href="{% url 'events' %}">Event</a></li>
+                                <li><a href="{% url 'contact' %}">Contact</a></li>
                             </ul>
                         </div>
                     </section>
@@ -231,15 +235,15 @@
 
             <!-- Social Navigation -->
             <ul class="social-nav clearfix">
-                <li class="facebook"><a href="#" target="_blank"></a></li>
-                <li class="twitter"><a href="#" target="_blank"></a></li>
-                <li class="linkedin"><a href="#" target="_blank"></a></li>
-                <li class="youtube"><a href="#" target="_blank"></a></li>
-                <li class="skype"><a href="skype:#?add" target="_blank"></a></li>
+                <li class="facebook"><a href="https://www.facebook.com/IIITH/" target="_blank"></a></li>
+                <li class="twitter"><a href="https://twitter.com/IIIT_Hyderabad" target="_blank"></a></li>
+                <li class="linkedin"><a href="https://www.linkedin.com/company/iiit-hyderabad" target="_blank"></a></li>
+                <li class="youtube"><a href="https://www.youtube.com/channel/UCzCMyBy0VRoQBF8x-TsXTnQ" target="_blank"></a></li>
+                <!--li class="skype"><a href="skype:#?add" target="_blank"></a></li>
                 <li class="flickr"><a href="#" target="_blank"></a></li>
                 <li class="deviantart"><a href="#" target="_blank"></a></li>
                 <li class="google"><a href="#" target="_blank"></a></li>
-                <li class="stumble"><a href="#" target="_blank"></a></li>
+                <li class="stumble"><a href="#" target="_blank"></a></li -->
             </ul>
 
         </div>
@@ -249,9 +253,18 @@
 <!-- End of Footer -->
 
 
-
-
-
+<script src="{% static 'js/jquery.min.js' %}"></script>
+<script src="{% static 'js/flexslider/jquery.flexslider-min.js' %}"></script>
+<script src="{% static 'js/swipebox/jquery.swipebox.min.js' %}"></script>
+<script src="{% static 'js/isotope/jquery.isotope.min.js' %}"></script>
+<script src="{% static 'js/jquery.jcarousel.min.js' %}"></script>
+<script src="{% static 'js/jquery.cycle2.min.js' %}"></script>
+<script src="{% static 'js/jquery.validate.min.js' %}"></script>
+<script src="{% static 'js/jquery.form.js' %}"></script>
+<script src="{% static 'js/responsive-nav.min.js' %}"></script>
+<script src="{% static 'js/bootstrap.min.js' %}"></script>
+<script src="{% static 'js/jquery-twitterFetcher.js' %}"></script>
+<script src="{% static 'js/custom.js' %}"></script>
 
 
 
@@ -259,3 +272,4 @@
 
 
 </body>
+</html>

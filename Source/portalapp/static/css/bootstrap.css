@@ -300,6 +300,14 @@ img {
   max-width: 100%;
   height: auto;
 }
+
+.img-responsive_line {
+  display: block;
+  max-width: 100%;
+  max-height: 62%;
+}
+
+
 .img-rounded {
   border-radius: 6px;
 }

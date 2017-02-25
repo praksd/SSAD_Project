@@ -23,6 +23,7 @@ urlpatterns += i18n_patterns('',
     url(r'^', include('cms.urls')),
 )
 
+
 # This is only needed when using runserver.
 if settings.DEBUG:
     urlpatterns = [
