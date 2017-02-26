@@ -47,20 +47,22 @@ def talks_list(request):
     # Rendering talks/talk_list.html and passing talks variable to the page 
     return render(request, 'talks/talks_list.html', {'talks':talks})
 
+# This function is corresponding to the uploading of talk by faculty 
 def talk_new(request):
-    if request.method == 'POST':
-      form = TalkForm(request.POST, request.FILES)
-      if form.is_valid():
-         talk = form.save(commit=False)
-         talk.author = request.user
-         talk.save()
-         user_send_activation_email.delay(user = request.user)
+    if request.method == 'POST':    # checking wheather the type of request is POST
+      form = TalkForm(request.POST, request.FILES)  # Assigning all the submitted data and files to variable form
+      if form.is_valid():                           # Validating the submitted data 
+         talk = form.save(commit=False)             # Not saving form as some fields are yet to add   
+         talk.author = request.user                 # assigning value to field author
+         talk.save()                                # saving                        
+         user_send_activation_email.delay(user = request.user)  # delaying the task of sending mail (celery)
          #mail.send(request.user.email,settings.EMAIL_HOST_USER,subject='My email',message='Hi there!',html_message='Hi <strong>there</strong>!',)
-         return redirect('talks_list')
+         return redirect('talks_list')              # redirecting to function talk_list
+                   
+    else:                                           # if type of request is get 
+      form = TalkForm()                             #  Creating new form of type TalkForm
+    return render(request, 'talks/talk_edit.html', {'form': form})   # passing form to template 
 
-    else:
-      form = TalkForm()
-    return render(request, 'talks/talk_edit.html', {'form': form})
 
 def talks_detail(request):
    user = request.user
