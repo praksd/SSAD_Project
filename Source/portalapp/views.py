@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.shortcuts import render_to_response,redirect,get_object_or_404
-from .models import Register, PressRelease,Event,inNews,Link,Googlenews,Querynews,Twitternews
+from .models import Register, PressRelease,Event,inNews,Link,Googlenews,Querynews,Twitternews #importing following model
 from django.utils import timezone
 from django.shortcuts import render, get_object_or_404
 from django.template import RequestContext
@@ -26,10 +26,14 @@ from django.core.mail import EmailMessage
 from .scrapechange import *
 from .scrapechange import *
 
-def talks_list(request):
-    talk = Register.objects.order_by('-date_and_time')
+# start of the functions related to the Talk page
 
-    paginator = Paginator(talk, 6) # Show 25 contacts per page
+# This function will display all the talks happened till date
+def talks_list(request):
+    # Register is the Model corresponing to the talks  
+    talk = Register.objects.order_by('-date_and_time') # Assigning list of talks reverse ordered according to date and time to variable talk
+    # pagination
+    paginator = Paginator(talk, 6) # Show 6 talks per page
 
     page = request.GET.get('page')
     try:
@@ -40,7 +44,7 @@ def talks_list(request):
     except EmptyPage:
         # If page is out of range (e.g. 9999), deliver last page of results.
         talks = paginator.page(paginator.num_pages)
-
+    # Requesting   
     return render(request, 'talks/talks_list.html', {'talks':talks})
 
 def talk_new(request):
@@ -83,6 +87,7 @@ def talk_part(request,pk):
    news=inNews.objects.all().order_by('-date')[:5]
    return render(request, 'talks/talk_part.html', {'talk': talk,'news':news})
 
+# end
 def index(request):
     template = loader.get_template('home/index.html')
     context = {
