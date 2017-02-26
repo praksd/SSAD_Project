@@ -26,47 +26,6 @@ from django.core.mail import EmailMessage
 from .scrapechange import *
 from .scrapechange import *
 
-
-def index(request):
-    template = loader.get_template('home/index.html')
-    context = {
-        'latest_question_list': latest_question_list,
-    }
-    return HttpResponse(template.render(context, request))
-
-def album_list(request):
-    album_choice = Album.objects.all()
-    events_recent=Event.objects.all().filter(date__gte = timezone.now()).order_by('date')[:5]
-    news=inNews.objects.all().order_by('-date')[:5]
-    return render(request, "talks/gallery.html", {'album_choice':album_choice,'news':news,'events_recent':events_recent})
-
-def photo_list(request,pk):
-
-    album = get_object_or_404(Album, pk=pk)
-    events_recent=Event.objects.all().filter(date__gte = timezone.now()).order_by('date')[:5]
-    pic = Photo.objects.filter(album = album)
-
-    paginator = Paginator(pic, 8) # Show 25 contacts per page
-
-    page = request.GET.get('page')
-    try:
-        pics = paginator.page(page)
-    except PageNotAnInteger:
-        # If page is not an integer, deliver first page.
-        pics = paginator.page(1)
-    except EmptyPage:
-        # If page is out of range (e.g. 9999), deliver last page of results.
-        pics = paginator.page(paginator.num_pages)
-
-    context = {
-            "album" : album,
-            "pics"  : pics,
-            'events_recent':events_recent
-            }
-    return render(request, "talks/album_view.html", context)
-
-
-
 def talks_list(request):
     talk = Register.objects.order_by('-date_and_time')
 
@@ -124,6 +83,43 @@ def talk_part(request,pk):
    news=inNews.objects.all().order_by('-date')[:5]
    return render(request, 'talks/talk_part.html', {'talk': talk,'news':news})
 
+def index(request):
+    template = loader.get_template('home/index.html')
+    context = {
+        'latest_question_list': latest_question_list,
+    }
+    return HttpResponse(template.render(context, request))
+
+def album_list(request):
+    album_choice = Album.objects.all()
+    events_recent=Event.objects.all().filter(date__gte = timezone.now()).order_by('date')[:5]
+    news=inNews.objects.all().order_by('-date')[:5]
+    return render(request, "talks/gallery.html", {'album_choice':album_choice,'news':news,'events_recent':events_recent})
+
+def photo_list(request,pk):
+
+    album = get_object_or_404(Album, pk=pk)
+    events_recent=Event.objects.all().filter(date__gte = timezone.now()).order_by('date')[:5]
+    pic = Photo.objects.filter(album = album)
+
+    paginator = Paginator(pic, 8) # Show 25 contacts per page
+
+    page = request.GET.get('page')
+    try:
+        pics = paginator.page(page)
+    except PageNotAnInteger:
+        # If page is not an integer, deliver first page.
+        pics = paginator.page(1)
+    except EmptyPage:
+        # If page is out of range (e.g. 9999), deliver last page of results.
+        pics = paginator.page(paginator.num_pages)
+
+    context = {
+            "album" : album,
+            "pics"  : pics,
+            'events_recent':events_recent
+            }
+    return render(request, "talks/album_view.html", context)
 
 def release_unique(request,pk):
    pressrelease  = get_object_or_404(PressRelease, pk=pk)
