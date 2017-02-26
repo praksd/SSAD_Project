@@ -63,11 +63,11 @@ def talk_new(request):
       form = TalkForm()                             #  Creating new form of type TalkForm
     return render(request, 'talks/talk_edit.html', {'form': form})   # passing form to template 
 
-
+# function corresponding to page which displays all the talks uploaded by login user
 def talks_detail(request):
-   user = request.user
-   talks = Register.objects.order_by('-date_and_time')
-   news=inNews.objects.all().order_by('-date')[:5]
+   user = request.user           # Assigning the fields corresponding to login user to variable user
+   talks = Register.objects.order_by('-date_and_time')    # Assigning list of talks reverse ordered according to date and time to variable talk
+   news = inNews.objects.all().order_by('-date')[:5]
    return render(request, 'talks/talks_detail.html', {'talks':talks,'news':news})
 
 def talk_edit(request,pk):
