@@ -44,7 +44,7 @@ def talks_list(request):
     except EmptyPage:
         # If page is out of range (e.g. 9999), deliver last page of results.
         talks = paginator.page(paginator.num_pages)
-    # Requesting   
+    # Rendering talks/talk_list.html and passing talks variable to the page 
     return render(request, 'talks/talks_list.html', {'talks':talks})
 
 def talk_new(request):
